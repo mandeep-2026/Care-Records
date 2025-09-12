@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Health Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        /* Top bar */
+        
+        .topbar {
+            background: #111;
+            color: #fff;
+            font-size: 0.9em;
+            padding: 6px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .topbar .left span {
+            margin-right: 15px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        
+        .topbar .right a {
+            color: #fff;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        /* Header */
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        header h1 {
+            font-size: 1.5em;
+            color: #00b3ff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #00b3ff;
+        }
+        /* Hamburger Menu (mobile) */
+        
+        .menu-toggle {
+            display: none;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        
+        nav {
+            transition: max-height 0.3s ease-in-out;
+        }
+        
+        nav ul {
+            flex-wrap: wrap;
+        }
+        /* Hero */
+        
+        .hero {
+            background: url("https://lh5.googleusercontent.com/proxy/KYVnNz6aB_xy8MmUnw9X0w2wuvfsPyyWAWMLX2UbHtZVZCUz-yxY3R8SbFme5_XuSDy7LeQjQeY7VNAsYDQxQSym_HZUPGVI8dzqzM4iU97ZwZHfJuPd8AdUKBc-Jc6gMpp0H-_MNKyxxqmkCwVEBklg3bDtRIFUc1Dk7hhnv4jcj-UpRs8NOk7Ysyx0Ef4AI5X-wrGArTHIY6R7U9_aVVoKqbc4ZP8UQrHiPfirtaa0qw") no-repeat center/cover;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+            color: #fff;
+            position: relative;
+        }
+        
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .hero p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .hero a {
+            background: #00b3ff;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin: 0 8px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        
+        .hero a:hover {
+            background: #008ecc;
+        }
+        /* Sections */
+        
+        section {
+            padding: 60px 10%;
+        }
+        
+        section h2 {
+            color: #00b3ff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        
+        section p {
+            margin-bottom: 15px;
+        }
+        /* Services */
+        
+        .service-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .service-box {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .service-box img {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .service-box:hover {
+            transform: translateY(-5px);
+        }
+        /* Why Choose Us & Achievements & About */
+        
+        .choose-items,
+        .achievements-items,
+        .about-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            align-items: center;
+        }
+        
+        .choose-items img,
+        .achievements-items img,
+        .about-items img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        /* Stats */
+        
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: center;
+            gap: 40px;
+        }
+        
+        .stat {
+            flex: 1 1 200px;
+        }
+        
+        .stat h2 {
+            font-size: 2em;
+            color: #00b3ff;
+        }
+        /* Footer */
+        
+        footer {
+            background: #111;
+            color: #ddd;
+            padding: 40px 10%;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            color: #fff;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-col ul li a {
+            text-decoration: none;
+            color: #bbb;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: #00b3ff;
+        }
+        
+        .footer-col p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #bbb;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+            font-size: 0.9em;
+        }
+        /* Responsive */
+        
+        @media(max-width: 900px) {
+            header {
+                padding: 15px 20px;
+            }
+            nav ul {
+                flex-direction: column;
+                background: #fff;
+                position: absolute;
+                top: 65px;
+                right: 0;
+                width: 200px;
+                border: 1px solid #ddd;
+                display: none;
+                padding: 15px;
+            }
+            nav ul.show {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        @media(max-width: 600px) {
+            .hero h2 {
+                font-size: 1.8em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            section {
+                padding: 40px 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top bar -->
+    <div class="topbar">
+        <div class="left">
+            <span><i class="fa-solid fa-envelope"></i> contact@ourhospital.com</span>
+            <span><i class="fa-solid fa-phone"></i> (123) 456-7890</span>
+        </div>
+        <div class="right">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <h1><i class="fa-solid fa-hospital"></i> Care Records</h1>
+        <div class="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+        <nav>
+            <ul>
+                <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="services.html"><i class="fa-solid fa-stethoscope"></i> Services</a></li>
+                <li><a href="doctor.html"><i class="fa-solid fa-user-doctor"></i> Doctors</a></li>
+                <li><a href="contact.php"><i class="fa-solid fa-phone"></i> Contact</a></li>
+                <li><a href="k.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Our Hospital</h2>
+            <p>Your Health, Our Priority</p>
+            <a href="appointment.php">Book Appointment</a>
+            <a href="patient.php">Patient Details</a>
+        </div>
+    </section>
+
+    <!-- Home Info -->
+    <section>
+        <h2>About Healthcare</h2>
+        <p>A hospital is a healthcare institution that provides medical care, housing, and training for patients and health professionals. Hospitals offer various services, including:</p>
+        <ul>
+            <li>Diagnosis, treatment, and patient support</li>
+            <li>Emergency care and outpatient services</li>
+            <li>Rehabilitation and teaching programs</li>
+            <li>Medical research advancements</li>
+        </ul>
+        <img src="https://media.istockphoto.com/id/1174322666/photo/medical-professional-greets-patient-at-clinic.jpg?s=612x612&w=0&k=20&c=tHV2IcqtGPeA06tPI_XctVab5mrBtOm75QH86ptm0zo=" alt="Medical Professional" style="margin-top:20px; width:100%; border-radius:8px;">
+    </section>
+
+    <!-- Services -->
+    <section class="services">
+        <h2>Our Services</h2>
+        <div class="service-boxes">
+            <div class="service-box">
+                <img src="https://www.shutterstock.com/image-photo/stethoscope-on-patient-form-desk-260nw-243110167.jpg" alt="Stethoscope">
+                <h3>Stethoscope Services</h3>
+                <p>Accurate patient monitoring with modern devices.</p>
+            </div>
+            <div class="service-box">
+                <img src="https://www.motherhoodindia.com/wp-content/uploads/2021/09/Contact-page-Book-an-Appointment_Mobile-banner_578X364-px-02.jpg" alt="Appointment Booking">
+                <h3>Appointment Booking</h3>
+                <p>Book your appointments easily online.</p>
+            </div>
+            <div class="service-box">
+                <img src="https://chandanpharmacy.com/Content/img/medicine-online.jpg" alt="Online Medicine">
+                <h3>Online Medicine</h3>
+                <p>Order medicines online with fast delivery.</p>
+            </div>
+            <div class="service-box">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVuz6rb-VCrWdxi86RaC8Qh1RZqezAJpONFg&s" alt="Pharmacy Services">
+                <h3>Pharmacy Services</h3>
+                <p>Trusted pharmacy with genuine medicines.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="choose">
+        <h2>Why Choose Our Hospital?</h2>
+        <div class="choose-items">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdobn0yDUe8txnDklCcTkYHnst7KbfiVOsgA1Zi3Qs6jfwjgbSEFSXduSJijm9fZZTibE&usqp=CAU" alt="Why Choose Us">
+            <p>We offer quality healthcare with state-of-the-art facilities, experienced doctors, advanced medical technology, and 24/7 emergency services.</p>
+        </div>
+    </section>
+
+    <!-- Achievements -->
+    <section class="achievements">
+        <h2>Our Achievements</h2>
+        <div class="achievements-items">
+            <img src="https://www.researchgate.net/publication/335083611/figure/fig2/AS:790138061860864@1565395002914/Achievements-of-Arabic-medicine-and-pharmacy-Pan-et-al-2014.jpg" alt="Healthcare Achievements">
+            <p>Recognized for excellence in healthcare services and patient satisfaction, including eradicating diseases, developing new medicines and vaccines, and improving global health outcomes.</p>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section class="about">
+        <h2>About Us</h2>
+        <div class="about-items">
+            <p>We are committed to providing state-of-the-art healthcare and fostering trust through transparency, innovation, and professionalism.</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_iAkS1VqmTFkJ9746z0SljL34UwTP7FUVIOOla5kw7pVrhWyaiYGAtrLI26jyDdJmK1I&usqp=CAU" alt="About Us">
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stat">
+            <h2>10+</h2>
+            <p>Years of Experience</p>
+        </div>
+        <div class="stat">
+            <h2>5K+</h2>
+            <p>Patients Treated</p>
+        </div>
+        <div class="stat">
+            <h2>100+</h2>
+            <p>Qualified Doctors</p>
+        </div>
+        <div class="stat">
+            <h2>50+</h2>
+            <p>Departments</p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact">
+        <h2>Contact Details</h2>
+        <p>Email: contact@ourhospital.com</p>
+        <p>Phone: (123) 456-7890</p>
+        <p>Address: Vivekanand Hospital near IT Chauraha</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Policy</h3>
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="doctor.html">Find Doctors</a></li>
+                    <li><a href="medicine.php">Buy Medicine</a></li>
+                    <li><a href="record.php">View Records</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>About Care Records</h3>
+                <p>
+                    E-Health Hospital is committed to delivering modern healthcare with advanced technology, experienced doctors, and patient-centered care. We aim to provide trusted medical services, online consultations, and easy access to medicines and records.
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2025 Care Records. All rights reserved.</div>
+    </footer>
+
+    <script>
+        const toggle = document.querySelector(".menu-toggle");
+        const nav = document.querySelector("nav ul");
+
+        toggle.addEventListener("click", () => {
+            nav.classList.toggle("show");
+        });
+    </script>
+</body>
+
+</html>
