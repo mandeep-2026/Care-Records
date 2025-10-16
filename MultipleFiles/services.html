@@ -1,0 +1,206 @@
+<?php
+session_start();
+
+// Redirect if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit();
+}
+?>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Care records</title>
+        <link rel="stylesheet" href="a.css">
+        <style>
+            body {
+                font-family: "Segoe UI", sans-serif;
+                background-color: #f7fafc;
+                margin: 0;
+                padding: 0;
+                color: #333;
+            }
+            /* Header */
+            
+            header {
+                background-color: #0077b6;
+                color: white;
+                padding: 15px 20px;
+                text-align: center;
+            }
+            
+            header h1 {
+                margin: 0;
+                font-size: 24px;
+            }
+            
+            nav ul {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+                list-style: none;
+                padding: 0;
+                margin: 10px 0 0 0;
+            }
+            
+            nav ul li a,
+            nav ul li button {
+                text-decoration: none;
+                background: #0096c7;
+                color: white;
+                padding: 10px;
+                border-radius: 5px;
+                font-size: 15px;
+                margin-top: 7px;
+                border: none;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+            
+            nav ul li a:hover,
+            nav ul li button:hover {
+                background: #00b4d8;
+            }
+            /* Services Section */
+            
+            .services {
+                text-align: center;
+                margin: 30px auto;
+            }
+            
+            .services h2 {
+                color: #023e8a;
+                font-size: 26px;
+                margin-bottom: 20px;
+            }
+            /* Single box container for all service buttons */
+            
+            .services-box {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+                background-color: #e0f7fa;
+                /* Light blue background */
+                padding: 25px 20px;
+                border-radius: 12px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s;
+            }
+            
+            .services-box:hover {
+                transform: translateY(-3px);
+            }
+            /* Service buttons */
+            
+            .service-btn {
+                text-decoration: none;
+                color: white;
+                background-color: #0077b6;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-weight: 500;
+                transition: background 0.3s, transform 0.3s;
+            }
+            
+            .service-btn:hover {
+                background-color: #0096c7;
+                transform: translateY(-3px);
+            }
+            /* Main content */
+            
+            main {
+                max-width: 900px;
+                margin: 20px auto;
+                padding: 20px;
+                line-height: 1.6;
+                color: #333;
+            }
+            
+            main ul {
+                padding-left: 20px;
+            }
+            
+            main li {
+                margin-bottom: 8px;
+            }
+            /* Footer */
+            
+            footer {
+                background: #023e8a;
+                color: white;
+                text-align: center;
+                padding: 15px 0;
+                margin-top: 40px;
+            }
+            
+            footer p {
+                margin: 5px;
+                font-size: 14px;
+            }
+            /* Responsive */
+            
+            @media (max-width: 768px) {
+                header h1 {
+                    font-size: 20px;
+                }
+            }
+            
+            @media (max-width: 600px) {
+                .service-btn {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        </style>
+
+
+    </head>
+
+    <body>
+        <header>
+            <h1>Welcome,
+                <?= htmlspecialchars($_SESSION['user_name']); ?> 👨‍⚕️</h1>
+            <nav>
+                <ul>
+                    <li><a href="home.html">🏠 Home</a></li>
+                    <li><a href="contact.php">📞 Contact</a></li>
+
+                </ul>
+            </nav>
+        </header>
+
+        <section class="services">
+            <h2>Comprehensive Healthcare Services</h2>
+            <div class="services-box">
+                <a href="patient.php" class="service-btn">🧍‍♂️ Patient Details</a>
+                <a href="appointment.php" class="service-btn">📅 Book Appointment</a>
+                <a href="medicine.php" class="service-btn">💊 Buy Medication</a>
+                <a href="doctor.html" class="service-btn">👨‍⚕️ Find Doctors</a>
+                <a href="record.php" class="service-btn">📋 View Health Records</a>
+            </div>
+        </section>
+
+        <main>
+            <p>Our hospital offers a wide range of healthcare services including emergency care, outpatient facilities, and advanced specialty departments.</p>
+            <ul>
+                <li><strong>Emergency Services:</strong> 24/7 medical support for accidents and urgent care.</li>
+                <li><strong>Outpatient Clinics:</strong> Dentistry, rehabilitation, and counseling services.</li>
+                <li><strong>Specialty Care:</strong> Intensive Care Units, Radiology, and Surgical Theatres.</li>
+                <li><strong>Research & Education:</strong> Partnered with leading medical institutes.</li>
+                <li><strong>Community Programs:</strong> Health awareness and blood donation camps.</li>
+            </ul>
+        </main>
+
+        <footer>
+            <p>&copy;
+                <?= date("Y") ?> Care Reords. All rights reserved.</p>
+            <p>Empowering better healthcare through technology.</p>
+        </footer>
+    </body>
+
+    </html>
